@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Issue Name</th>
+                        <th>Due Date</th>
+                        <th>Message</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.due_date }}</td>
+                        <td style="color: red;">{{ item.message }}</td>
+                        <td>
+                            <button type="button" class="edit-btn" data-id="{{ item.id }}" data-name="{{ item.name }}" data-due-date="{{ item.due_date }}">Edit</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h2>Add New Issue</h2>
+            <form method="post" class="form-row">
+                {% csrf_token %}
+                <label for="name">Issue_Name:</label>
+                <input type="text" name="name"  placeholder="write your issue here" required><br>
+                <label for="due_date">Due Date:</label>
+                <input type="date" name="due_date" required><br>
+                <input type="submit" value="Add">
+            </form>
+            <h2>Edit Issue</h2>
+            <form method="post" class="form-row" id="edit-form" style="display: none;">
+                {% csrf_token %}
+                <input type="hidden" name="id" id="edit-id">
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="edit-name">
+                <label for="due_date">Due date:</label>
+                <input type="date" name="due_date" id="edit-due-date">
+                <button type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    const editBtns = document.querySelectorAll('.edit-btn');
+    const editForm = document.getElementById('edit-form');
+    const editId = document.getElementById('edit-id');
+    const editName = document.getElementById('edit-name');
+    const editDueDate = document.getElementById('edit-due-date');
+
+    editBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.dataset.id;
+            const name = btn.dataset.name;
+            const dueDate = btn.dataset.dueDate;
+            editId.value = id;
+            editName.value = name;
+            editDueDate.value = dueDate;
+            editForm.style.display = 'block';
+        });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <center>
+        <div class="col-md-6">
+          
+            <h1 >RD Table </h1><hr>
+            <h6>RD count : ({{rd_count}})</h6>
+        
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th style="background-color: #96D4D4;border: 1px solid black;">ID</th>
+                        <th style="background-color: #96D4D4;border: 1px solid black;">vacation Date</th>
+                    <th style="background-color: #96D4D4;border: 1px solid black;">instead of Date</th>
+                   
+                </tr>
+                </thead>
+                <tbody>
+                    {% for v in rd_date %}
+                    <tr >
+                        <td style="background-color: #96D4D4;border: 1px solid black;">{{forloop.counter}}</td>
+                        <td style="background-color: #96D4D4;border: 1px solid black;">{{v.start_date}}</td>
+                        <td style="background-color: #96D4D4;border: 1px solid black;">{{v.vacation_rd}}</td>
+                       
+                    </tr>
+                    {% endfor %}
+                   
+                </tbody>
+               
+               
+            </table>
+
+
+
+
+
+        </div> 
+       
+           
+      
+    </center>
+    </div>
+</div>
+{% endblock content %}

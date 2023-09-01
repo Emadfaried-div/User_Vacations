@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static  %}
+
+{% block content %}
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table" style="border: 0cap;">
+                <thead>
+                    <tr class="text-center">
+                        <th>Empoyee</th>
+                        <th>name</th>
+                        <th>age</th>
+                        <th>title</th>
+                        <th colspan="3">address</th>
+                    </tr>
+                </thead>
+                <tbody class="">
+                    <tr class="text-center">
+                        <th rowspan="2">employee 1 </th>
+                        <td>Emad</td>
+                        <td>48</td>
+                        <td>Engineer</td>
+                        <td>Ismailia</td><td>Fayed</td><td>Cairo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

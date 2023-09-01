@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Employee Edit Page{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row my-4">
+    <div class="col-md-9 offset-md-1 p-5 bg-white">
+        <h3>Edit Item</h3>
+        <hr>
+        <form  method="POST" enctype="multipart/form-data" class="form-row">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input class="btn btn-info" type="submit" value="Confirm" style="width:100%;">
+        </form>
+    </div>
+</div>
+{% endblock %}

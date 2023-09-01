@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Customer Page{% endblock %}
+
+
+{% block content %}
+{% comment %} {% include 'topside.html' %} {% endcomment %}
+<div class="content-wrapper">
+    {% if  user.is_superuser  %}
+            <center> <h6> Welcome"{{user.username}}"</h6></center><hr>
+    <div class="row my-4 offset-1">
+        <center>
+            <form method="GET" name="FilterForm" class="form-row">
+                {% csrf_token %}
+                {{filter.form|crispy}}
+
+                &nbsp;&nbsp;<button class="btn btn-info" type="submit" style="width:10%; height: 100%; float:left;">Filter</button>
+            </form>
+            <!-- include choose_month form -->
+           
+        </center>
+        
+        <div class="col-md-9 offset-0.5 ">
+            <h3>Employees View</h3>
+            <h4>Employee Count ({{employee_count}})</h4>
+            <center>
+                {% include 'choose_month.html' with navbar=None footer=None %}
+            </center>
+            <table class="table bg-white">
+                <thead class="bg-info text-white">
+                    <tr class="text-center">
+                        
+                        <th scope="col">S_No.</th>
+                        <th scope="col">Name</th>
+      
+                     
+                        <!-- <th scope="col">statment</th> -->
+                        <th scope="col">Employee_id</th>
+                    
+                        <th scope="col">Title</th>
+                        <th scope="col">Add Vacation</th>
+                        <th scope="col">Add Attendance</th>
+                        <th scope="col">Details</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in employee %}
+                  
+
+                    <tr class="text-center">
+                        
+                      
+                        <td>{{forloop.counter}}</td>
+                        <td>{{ s.name }} </td>
+                        <td>{{ s.eid }}</td>
+                        
+                        <td>{{ s.title }}</td>
+                     
+                        <th scope="row">
+                            <a class="btn btn-danger btn-sm"
+                                href="{% url 'vacationadd' s.id%}"  >Add Vacation</a>
+                            </th>
+                            <th scope="row">
+                                <a class="btn btn-success btn-sm"
+                                    href="{% url 'attendanceadd' s.id %}"  >Add Attendance</a>
+                                </th>
+                     
+                        <th scope="row">
+                            <a class="btn btn-info btn-sm"
+                                href="{% url 'one_employee' s.id %} "  >View</a>
+                            </th>
+                
+                       
+                    </tr>
+               
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3">
+            <center>
+            <h3>Add New:</h3>
+            <h6><a href="{% url 'employeeaddform' %}" class=""><button class="btn btn-info width=100%;">Employee</button></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'user-register' %}" class=""><button class="btn btn-success width=100%;">User</button></a></h6>
+            
+        
+        </center>
+            
+
+        </div>
+    </div>
+    {% else  %}
+    <center><h4>Oops... You are not authorized to edit or modify any employee data </h4></center>
+    <center> <h6 style=color:blueviolet;> Welcome"{{user.username}}"</h6></center><hr>
+    s
+    <div class="row my-4 offset-1">
+        <center>
+            <form method="GET" name="FilterForm" class="form-row">
+                {% csrf_token %}
+                {{filter.form|crispy}}
+
+                <button class="btn btn-info" type="submit" style="width:10%; height: 100%; float:left;">Filter</button>
+            </form>
+        </center>
+   
+        <div class="col-md-9 offset-0.5 ">
+            <h3>Employees View</h3>
+            <h4>Employee Count ({{employee_count}})</h4>
+            <table class="table bg-white">
+                <thead class="bg-info text-white">
+                    <tr class="text-center">
+                        
+                        <th scope="col">S_No.</th>
+                        <th scope="col">Name</th>
+      
+                     
+                        <!-- <th scope="col">statment</th> -->
+                        <th scope="col">Employee_id</th>
+                    
+                        <th scope="col">Title</th>
+                        
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in user_employees %}
+                  
+                    <tr class="text-center">
+                        
+                      
+                        <td>{{forloop.counter}}</td>
+                        <td>{{ s.name }} </td>
+                        <td>{{ s.eid }}</td>
+                        
+                        <td>{{ s.title }}</td>
+                       
+                       
+               
+                    
+                        <th scope="row">
+                            <a class="btn btn-info btn-sm"
+                                href="{% url 'one_employee' s.id %} "  >View</a>
+                            </th>
+                      
+         
+                         
+                          
+                    </tr>
+             
+                    {% endfor %}
+
+
+                    
+                    {% for s in employee %}
+                    <tr class="text-center">
+                        
+                      
+                        <td></td>
+                        <td>{{ s.name }} </td>
+                        <td>{{ s.eid }}</td>
+                        
+                        <td>{{ s.title }}</td>
+                       
+                       
+               
+                    
+                        
+         
+                         
+                          
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+
+
+
+
+
+
+
+
+
+
+   
+    {% endif %}
+</div>
+
+{% endblock %}

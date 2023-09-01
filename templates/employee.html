@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block title %}Customer Page{% endblock %}
+
+
+{% block content %}
+{% comment %} {% include 'topside.html' %} {% endcomment %}
+<div class="content-wrapper">
+    
+    <div class="row my-4 offset-1">
+    
+   
+        <div class="col-md-8 offset-0.5 ">
+            <h3>Employee View</h3>
+            <table class="table bg-white">
+                <thead class="bg-info text-white">
+                    <tr>
+                        
+                        <th scope="col">S_No.</th>
+                        <th scope="col">name</th>
+      
+                     
+                        <!-- <th scope="col">statment</th> -->
+                        <th scope="col">Employee_id</th>
+                    
+                        <th scope="col">Title</th>
+                        <th scope="col">Details</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in employee %}
+                    <tr>
+                        
+                      
+                        <td>{{forloop.counter}}</td>
+                        <td>{{ s.name }} </td>
+                        <td>{{ s.employee_id }}</td>
+                        
+                        <td>{{ s.title }}</td>
+                     
+                        <th scope="row">
+                            <a class="btn btn-info btn-sm"
+                                href="{% url 'one_employee' s.id %} "  >View</a>
+                            </th>
+                       
+                       
+                    </tr>
+                  
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <h3>Add New Employee</h3>
+        
+           <h6><a href="{% url 'employeeaddform' %}" class=""><button class="btn btn-primary width=100%;">Add Employee</button></a></h6>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock %}

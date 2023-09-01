@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Staff Page{% endblock %}
+
+
+{% block content %}
+{% include 'topside.html' %}
+<div class="row my-4">
+    
+    <div class="col-md-4 "></div>
+    <div class="col-md-12 ">
+        <table class="table bg-white">
+            <thead class="bg-info text-white">
+                <tr>
+                    <th scope="col">SR.</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Phone</th>
+                   
+                    <th scope="col">National_ID</th>
+                    <th scope="col">Address</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in staffs %}
+                <tr>
+                    <th scope="row"><a class="btn btn-info btn-sm"
+                            href="#">View</a></th>
+
+                   {% if user.is_authenticated and user.is_staff %} <td>{{ s.staff }}</td>{% endif %}
+                    <td>{{ s.phone1 }}</td>
+                 
+                    <td>{{ s.p_id }}</td>
+                    <td>{{ s.address }}</td
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

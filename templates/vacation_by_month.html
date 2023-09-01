@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Vacations in {{ month_name|title }}</h1>
+  <form method="get" action="{% url 'vacations_by_month' month_name %}">
+    <input type="text" name="search" value="{{ search_query }}" placeholder="Search by username">
+    <button type="submit">Search</button>
+  </form>
+  {% if vacations %}
+    <table class="table bg-white">
+      <thead class="bg-info text-white">
+        <tr  class="text-center  text-center">
+          <th class="bg-warning  text-center">ID</th>
+          <th class="bg-info text-center">User</th>
+          <th class="bg-success text-center">Start Date</th>
+          <th class="bg-warning text-center">End Date</th>
+          <th class="bg-info  text-center">Day Count</th>
+          <th class="bg-success text-center">VRD</th>
+          <th class="bg-warning text-center">Vacation Type</th>
+          <th class="bg-info text-center">Comments</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for vacation in vacations %}
+          <tr class="text-center">
+            <td class="text-center" >{{ vacation.id }}</td>
+            <td class="text-center">{{ vacation.user.username }}</td>
+            <td class="text-center">{{ vacation.st_date }}</td>
+            <td class="text-center">{{ vacation.end_date }}</td>
+            <td class="text-center">{{ vacation.day_count }}</td>
+            <td class="text-center">{{ vacation.vrd }}</td>
+            <td class="text-center">{{ vacation.vacation_type }}</td>
+            <td class="text-center">{{ vacation.comments }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No vacations found for {{ month_name|title }}.</p>
+  {% endif %}
+{% endblock %}
